@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CourseService {
 
-  baseURL = 'http://127.0.0.1:8000';
+  baseURL1 = 'http://127.0.0.1:8000';
+  baseURL = 'https://django-course-api.onrender.com';
 
   constructor(private http: HttpClient) { }
 
