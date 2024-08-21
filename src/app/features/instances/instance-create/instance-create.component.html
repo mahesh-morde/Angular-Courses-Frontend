@@ -1,0 +1,51 @@
+<h1>Create New Instance</h1>
+<div>
+  <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Course Code Dropdown -->
+    <div>
+      <label for="course_code">Course Code:</label>
+      <select id="course_code" formControlName="course_code" (change)="onCourseCodeChange()">
+        <option *ngFor="let course of courses" [value]="course.course_code">
+          {{ course.course_code }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Non-editable Course Title -->
+    <div>
+      <label for="course_title">Course Title:</label>
+      <input id="course_title" formControlName="course_title" type="text">
+    </div>
+
+    <!-- Year Input -->
+    <div>
+      <label for="year">Year:</label>
+      <input id="year" formControlName="year" type="number">
+      <div *ngIf="instanceForm.controls['year'].invalid && (instanceForm.controls['year'].dirty || instanceForm.controls['year'].touched)">
+        <small *ngIf="instanceForm.controls['year'].errors?.['required']">Year is required.</small>
+        <small *ngIf="instanceForm.controls['year'].errors?.['min'] || instanceForm.controls['year'].errors?.['max']">
+          Year must be between 1900 and 2100.
+        </small>
+      </div>
+    </div>
+
+    <!-- Semester Input -->
+    <div>
+      <label for="semester">Semester:</label>
+      <input id="semester" formControlName="semester" type="number">
+      <div *ngIf="instanceForm.controls['semester'].invalid && (instanceForm.controls['semester'].dirty || instanceForm.controls['semester'].touched)">
+        <small *ngIf="instanceForm.controls['semester'].errors?.['required']">Semester is required.</small>
+        <small *ngIf="instanceForm.controls['semester'].errors?.['min'] || instanceForm.controls['semester'].errors?.['max']">
+          Semester must be between 1 and 8.
+        </small>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div>
+      <button type="button" (click)="onCancel()">Cancel</button>
+      <button type="submit" [disabled]="instanceForm.invalid">Create</button>
+    </div>
+  </form>
+</div>

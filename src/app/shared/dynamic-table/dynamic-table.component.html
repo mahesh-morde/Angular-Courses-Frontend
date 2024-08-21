@@ -1,0 +1,23 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Dynamic Columns -->
+  <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef> {{ headerData[columns.indexOf(column)] | titlecase }} </th>
+    <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button (click)="viewDetails(element.id)">View Details</button>
+      <button mat-button color="warn" (click)="deleteCourse(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

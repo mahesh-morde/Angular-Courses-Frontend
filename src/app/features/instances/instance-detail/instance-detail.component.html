@@ -1,0 +1,26 @@
+<div class="container my-5">
+    <h1 class="fw-bold mb-4">Instance Details</h1>
+    
+    <div *ngIf="loading" class="text-center">
+      <p>Loading...</p>
+    </div>
+  
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+  
+    <div *ngIf="!loading && !error && instance">
+      <h2>Instance Information</h2>
+      <p><strong>Instance ID:</strong> {{ instance?.id }}</p>
+      <p><strong>Delivered In Year, Semister:</strong> {{ instance?.year }}, {{ instance?.semester }}</p> 
+      <p><strong>Course ID:</strong> {{ instance?.course?.id }}</p>
+      <p><strong>Title:</strong> {{ instance?.course?.title }}</p>
+      <p><strong>Course Code:</strong> {{ instance?.course?.course_code }}</p>
+      <p><strong>Description:</strong> {{ instance?.course?.description }}</p>
+      <!-- Add more fields as necessary -->
+    </div>
+
+    <button class="btn btn-secondary mb-4" (click)="goBack()">Back</button>
+
+</div>
+  

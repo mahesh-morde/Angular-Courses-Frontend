@@ -1,0 +1,33 @@
+<main class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">Instance List</h1>
+    <button class="btn btn-primary" (click)="createNewInstance()">Create New Instance</button>
+  </div>
+
+  <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
+    <div class="row mb-4">
+      <div class="col-md-6 mb-3">
+        <label for="year" class="form-label">Year</label>
+        <input id="year" formControlName="year" class="form-control" type="number" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="semester" class="form-label">Semester</label>
+        <input id="semester" formControlName="semester" class="form-control" type="number" />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Fetch Instances</button>
+  </form>
+  <button class="btn btn-primary" (click)="fetchAllInstances()">Fetch All Instances</button>
+
+  <dynamic-table *ngIf="!noData"
+    [columns]="data"
+    [headerData] = "headerList"
+    [dataSource]="instances"
+    (delete)="deleteInstance($event)"
+    (view)="viewDetails($event)">
+  </dynamic-table>
+
+  <div *ngIf="noData">
+    <null-screen></null-screen>
+  </div>
+</main>

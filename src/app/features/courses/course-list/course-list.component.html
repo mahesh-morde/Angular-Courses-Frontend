@@ -1,0 +1,19 @@
+<main class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="fw-bold">Course List</h1>
+      <button class="btn btn-primary" (click)="createNewCourse()">Add New Course</button>
+    </div>
+  
+    <dynamic-table *ngIf="!noData"
+      [columns]="data"
+      [headerData] = "headerList"
+      [dataSource]="courses" 
+      (delete)="deleteCourse($event)" 
+      (view)="viewDetails($event)">
+    </dynamic-table>
+  
+    <div *ngIf="noData">
+      <null-screen></null-screen>
+    </div>
+  </main>
+  
