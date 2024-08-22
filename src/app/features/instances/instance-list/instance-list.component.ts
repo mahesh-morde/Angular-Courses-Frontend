@@ -148,4 +148,8 @@ export class InstanceListComponent implements OnInit {
   fetchAllInstances() {
     this.getAllInstances();
   }
+
+  viewCourses(){
+    this.router.navigateByUrl('courses');
+  }
 }

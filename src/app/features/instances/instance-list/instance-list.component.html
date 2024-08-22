@@ -18,6 +18,8 @@
     <button type="submit" class="btn btn-primary">Fetch Instances</button>
   </form>
   <button class="btn btn-primary" (click)="fetchAllInstances()">Fetch All Instances</button>
+  <button class="btn btn-primary" (click)="viewCourses()">View Courses</button>
+
 
   <dynamic-table *ngIf="!noData"
     [columns]="data"

@@ -3,6 +3,7 @@
       <h1 class="fw-bold">Course List</h1>
       <button class="btn btn-primary" (click)="createNewCourse()">Add New Course</button>
     </div>
+    <button class="btn btn-primary" (click)="viewInstances()">View Instances</button>
   
     <dynamic-table *ngIf="!noData"
       [columns]="data"

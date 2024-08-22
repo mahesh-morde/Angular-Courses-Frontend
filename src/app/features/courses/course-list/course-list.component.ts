@@ -12,8 +12,8 @@ import { CourseCreateComponent } from '../course-create/course-create.component'
 })
 export class CourseListComponent implements OnInit {
   courses: any[] = [];
-  data = ['id', 'title', 'course_code', 'description']; // Columns to match course data
-  headerList = ['Course ID', 'Course Title', 'Course Code', 'Description']; // Headers for these columns
+  data = ['id', 'title', 'course_code', 'description']; 
+  headerList = ['Course ID', 'Course Title', 'Course Code', 'Description'];
 
   noData: boolean = false;
   loader: boolean = false;
@@ -39,7 +39,7 @@ export class CourseListComponent implements OnInit {
 
   deleteCourse(id: number) {
     this.courseService.deleteCourse(id).subscribe(() => {
-      this.getAllCourses(); // Refresh the list after deletion
+      this.getAllCourses();
     });
   }
 
@@ -58,15 +58,17 @@ export class CourseListComponent implements OnInit {
   }
 
   createNewCourse() {
-
     const dialogRef = this.dialog.open(CourseCreateComponent, {
       width: '60vw',
       height: '60vh',
-    
     });
 
     dialogRef.afterClosed().subscribe(() => {
       this.getAllCourses();
     });
+  }
+
+  viewInstances(){
+    this.router.navigateByUrl('instances');
   }
 }
