@@ -1,44 +1,48 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { CourseService } from '../../../services/course.service';
-import { InstanceListComponent } from '../../instances/instance-list/instance-list.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-create',
   templateUrl: './course-create.component.html',
-  styleUrl: './course-create.component.css',
+  styleUrls: ['./course-create.component.css'], // Corrected property name
 })
 export class CourseCreateComponent implements OnInit {
   courseForm: FormGroup;
+  loading = false; // To manage loading spinner
+  error: string | null = null; // For error messages
 
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
-    private dialogRef: MatDialogRef<InstanceListComponent>
+    private dialogRef: MatDialogRef<CourseCreateComponent>, // Updated to use the correct component
+    private router: Router
   ) {
-    this.courseForm = this.fb.group({});
+    this.courseForm = this.fb.group({
+      title: ['', Validators.required],
+      course_code: ['', Validators.required],
+      description: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
-    this.courseForm = this.fb.group({
-      title: ['', [Validators.required]],
-      course_code: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-    });
+    // Additional initialization logic can be added here if needed
   }
 
   onSubmit(): void {
     if (this.courseForm.valid) {
-      const formData = this.courseForm.value;
-      this.courseService.createCourse(formData).subscribe(
+      this.loading = true; // Show spinner when submitting
+      this.courseService.createCourse(this.courseForm.value).subscribe(
         (res: any) => {
-          console.log('courses :', res);
-          this.courseForm.reset();
+          this.loading = false; // Hide spinner
+          this.dialogRef.close(true); // Close dialog on success
+          this.router.navigate(['/courses']); // Navigate to courses list or another page
         },
         (error) => {
+          this.loading = false; // Hide spinner
+          this.error = 'Error creating course. Please try again.'; // Set error message
           console.error('Error creating course:', error);
         }
       );

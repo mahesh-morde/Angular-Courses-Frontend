@@ -1,26 +1,59 @@
 <div class="container my-5">
-    <h1 class="fw-bold mb-4">Instance Details</h1>
-    
-    <div *ngIf="loading" class="text-center">
-      <p>Loading...</p>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center mb-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger mb-4">
+    {{ error }}
+  </div>
+
+  <div class="container my-2">
+    <!-- Loading Spinner -->
+    <div *ngIf="loading" class="text-center mb-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   
-    <div *ngIf="error" class="alert alert-danger">
+    <!-- Error Message -->
+    <div *ngIf="error" class="alert alert-danger mb-4">
       {{ error }}
     </div>
   
+    <!-- Instance Details -->
     <div *ngIf="!loading && !error && instance">
-      <h2>Instance Information</h2>
-      <p><strong>Instance ID:</strong> {{ instance?.id }}</p>
-      <p><strong>Delivered In Year, Semister:</strong> {{ instance?.year }}, {{ instance?.semester }}</p> 
-      <p><strong>Course ID:</strong> {{ instance?.course?.id }}</p>
-      <p><strong>Title:</strong> {{ instance?.course?.title }}</p>
-      <p><strong>Course Code:</strong> {{ instance?.course?.course_code }}</p>
-      <p><strong>Description:</strong> {{ instance?.course?.description }}</p>
-      <!-- Add more fields as necessary -->
-    </div>
+      <h2 class="fw-semibold mb-5">Instance Information</h2>
+      <div class="card">
 
-    <button class="btn btn-secondary mb-4" (click)="goBack()">Back</button>
-
-</div>
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-sm-3">Instance ID:</dt>
+            <dd class="col-sm-9">{{ instance?.id }}</dd>
   
+            <dt class="col-sm-3">Delivered In Year and Semester:</dt>
+            <dd class="col-sm-9">{{ instance?.year }}, {{ instance?.semester }}</dd>
+  
+            <dt class="col-sm-3">Course ID:</dt>
+            <dd class="col-sm-9">{{ instance?.course?.id }}</dd>
+  
+            <dt class="col-sm-3">Title:</dt>
+            <dd class="col-sm-9">{{ instance?.course?.title }}</dd>
+  
+            <dt class="col-sm-3">Course Code:</dt>
+            <dd class="col-sm-9">{{ instance?.course?.course_code }}</dd>
+  
+            <dt class="col-sm-3">Description:</dt>
+            <dd class="col-sm-9">{{ instance?.course?.description }}</dd>
+          </dl>
+          <button class="btn btn-secondary float-end" (click)="goBack()">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

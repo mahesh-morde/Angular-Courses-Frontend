@@ -119,6 +119,7 @@ export class InstanceListComponent implements OnInit {
       const dialogRef = this.dialog.open(InstanceDetailComponent, {
         width: '60vw',
         height: '60vh',
+        panelClass: 'custom-dialog-container',
         data: {
           course_id: id,
           course_year: year,
@@ -138,6 +139,7 @@ export class InstanceListComponent implements OnInit {
     const dialogRef = this.dialog.open(InstanceCreateComponent, {
       width: '60vw',
       height: '60vh',
+      panelClass: 'custom-dialog-container',
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getAllInstances();

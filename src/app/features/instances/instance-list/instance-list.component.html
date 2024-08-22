@@ -1,25 +1,32 @@
 <main class="container my-5">
+  <!-- Header with Title and Create Button -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold">Instance List</h1>
+    <div>
+      <h1 class="fw-bold">Instance List</h1>
+      <p class="text-muted mb-0">This list displays the course instances associated with specific years and semesters, allowing you to manage and view them easily.</p>
+    </div>
     <button class="btn btn-primary" (click)="createNewInstance()">Create New Instance</button>
   </div>
 
+  <!-- Form to Input Year and Semester -->
   <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
-    <div class="row mb-4">
-      <div class="col-md-6 mb-3">
+    <div class="row g-3 mb-4">
+      <div class="col-md-6">
         <label for="year" class="form-label">Year</label>
-        <input id="year" formControlName="year" class="form-control" type="number" />
+        <input id="year" formControlName="year" class="form-control" type="number" placeholder="Enter year" />
       </div>
-      <div class="col-md-6 mb-3">
+      <div class="col-md-6">
         <label for="semester" class="form-label">Semester</label>
-        <input id="semester" formControlName="semester" class="form-control" type="number" />
+        <input id="semester" formControlName="semester" class="form-control" type="number" placeholder="Enter semester" />
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Fetch Instances</button>
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary me-2">Fetch Instances</button>
+      <button type="button" class="btn btn-secondary me-2" (click)="fetchAllInstances()">Fetch All Instances</button>
+      <button class="btn btn-secondary" (click)="viewCourses()">View Courses</button>
+    </div>
   </form>
-  <button class="btn btn-primary" (click)="fetchAllInstances()">Fetch All Instances</button>
-  <button class="btn btn-primary" (click)="viewCourses()">View Courses</button>
-
+</main>
 
   <dynamic-table *ngIf="!noData"
     [columns]="data"
@@ -32,4 +39,4 @@
   <div *ngIf="noData">
     <null-screen></null-screen>
   </div>
-</main>
+

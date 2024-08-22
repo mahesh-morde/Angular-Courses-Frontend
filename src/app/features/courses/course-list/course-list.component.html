@@ -1,10 +1,28 @@
 <main class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
       <h1 class="fw-bold">Course List</h1>
-      <button class="btn btn-primary" (click)="createNewCourse()">Add New Course</button>
+      <p class="text-muted mb-0">This is the list of all available courses. You can add new courses or view existing instances from here.</p>
     </div>
-    <button class="btn btn-primary" (click)="viewInstances()">View Instances</button>
-  
+    <div>
+      <button class="btn btn-primary me-2" (click)="createNewCourse()">Add New Course</button>
+      <button class="btn btn-secondary" (click)="viewInstances()">View Instances</button>
+    </div>
+  </div>
+
+
+  <div *ngIf="noData" class="text-center my-5">
+    <div class="d-flex flex-column align-items-center justify-content-center">
+      <img class="null-screen img-fluid" src="assets/images/null_screen.png" alt="No Data Found Image">
+      <h2 class="mt-3 markify-text-medium-18 markify-text-grey-eight">
+        No Data Found
+      </h2>
+    </div>
+  </div>
+</main>
+
+
+
     <dynamic-table *ngIf="!noData"
       [columns]="data"
       [headerData] = "headerList"
@@ -13,8 +31,6 @@
       (view)="viewDetails($event)">
     </dynamic-table>
   
-    <div *ngIf="noData">
-      <null-screen></null-screen>
-    </div>
-  </main>
+    
+  
   

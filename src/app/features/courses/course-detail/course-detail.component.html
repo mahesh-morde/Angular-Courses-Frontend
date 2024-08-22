@@ -1,10 +1,19 @@
-<h2>Course List</h2>
-<ul>
-  
-    <h3>{{ courses.title }}</h3>
-    <p>{{courses.course_code}}</p>
-    <p>{{ courses.description }}</p>
 
- 
-</ul>
-<button (click)="goBack()">back</button>
+
+<div class="container my-5">
+    <!-- Display Course Details -->
+    <h2 class="mb-5">Course Details</h2>
+    <div class="card">
+      <div class="card-body">
+        <h3>{{ courses.title }}</h3>
+        <p><strong>Course Code:</strong> {{ courses.course_code }}</p>
+        <p><strong>Description:</strong> {{ courses.description }}</p>
+      </div>
+    </div>
+  
+    <!-- Back Button -->
+    <div class="d-flex justify-content-end mt-4">
+      <button class="btn btn-secondary" (click)="goBack()">Back</button>
+    </div>
+  </div>
+  
