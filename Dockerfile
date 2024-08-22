@@ -1,5 +1,5 @@
 # Use official Node.js image for build stage
-FROM node:latest as build
+FROM node:latest AS build
 
 # Set the working directory to the root of the Angular project
 WORKDIR /app
@@ -18,13 +18,13 @@ RUN npm install
 COPY . .
 
 # Build the Angular app
-RUN ng build --output-path /app/dist
+RUN ng build --output-path /app/dist/angular-courses/
 
 # Use NGINX for serving the app
 FROM nginx:latest
 
 # Copy the built Angular app to NGINX
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/angular-courses/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
