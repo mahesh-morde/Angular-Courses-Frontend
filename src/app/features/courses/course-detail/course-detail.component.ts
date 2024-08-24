@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CourseService } from '../../../services/course.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-course-detail',
@@ -17,11 +19,14 @@ export class CourseDetailComponent implements OnInit {
     private courseService: CourseService,
     private dialogRef: MatDialogRef<CourseDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    const id = this.data.course_id;
-    this.getCourseDetails(id);
+    if (isPlatformBrowser(this.platformId)) {
+      const id = this.data.course_id;
+      this.getCourseDetails(id);
+    }
   }
 
   getCourseDetails(id: number): void {

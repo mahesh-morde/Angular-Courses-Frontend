@@ -37,16 +37,22 @@ export class CourseCreateComponent implements OnInit {
       this.courseService.createCourse(this.courseForm.value).subscribe(
         (res: any) => {
           this.loading = false;
-          this.matSnackBar.open('Course Added Sucessfully', 'ok', { duration: 4000 });
+          this.matSnackBar.open('Course Added Successfully', 'ok', { duration: 4000 });
           this.dialogRef.close(true); 
+          this.courseForm.reset();  
         },
         (error) => {
           this.loading = false;
-          this.matSnackBar.open('Error creating course. Please try again', 'ok', { duration: 4000 });
+          let errorMsg = 'Error creating course. Please try again';
+          if (error.status === 400) {
+            errorMsg = 'Course code already exists. Please use a different code.';
+          }
+          this.matSnackBar.open(errorMsg, 'ok', { duration: 4000 });
         }
       );
     }
   }
+  
 
   goBack(): void {
     this.dialogRef.close(false);

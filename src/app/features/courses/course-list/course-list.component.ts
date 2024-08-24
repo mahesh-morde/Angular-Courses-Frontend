@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CourseCreateComponent } from '../course-create/course-create.component';
 import { DynamicTableComponent } from '../../../shared/dynamic-table/dynamic-table.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-course-list',
@@ -20,6 +21,7 @@ export class CourseListComponent implements OnInit {
   noData: boolean = false;
   loader: boolean = false;
   spinner: boolean = false;
+  private subscriptions: Subscription[] = [];
   @ViewChild(DynamicTableComponent) dynamicTable!: DynamicTableComponent;
 
   constructor(
@@ -33,9 +35,13 @@ export class CourseListComponent implements OnInit {
     this.getAllCourses();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   getAllCourses() {
     this.loader = true;
-    this.courseService.getCourses().subscribe({
+    const sub = this.courseService.getCourses().subscribe({
       next: (res: any) => {
         this.courses = res;
         this.loader = false;
@@ -44,23 +50,26 @@ export class CourseListComponent implements OnInit {
       error: (err) => {
         this.loader = false;
         this.noData = true;
+        this.matSnackBar.open('Failed to load courses', 'ok', { duration: 4000 });
       }
     });
+    this.subscriptions.push(sub);
   }
 
   deleteCourse(id: number) {
     this.spinner = true;
-    this.courseService.deleteCourse(id).subscribe({
+    const sub = this.courseService.deleteCourse(id).subscribe({
       next: () => {
         this.matSnackBar.open('Course deleted successfully', 'ok', { duration: 4000 });
         this.getAllCourses();
         this.spinner = false;
       },
       error: (err) => {
-        this.matSnackBar.open('Oops Please try again after sometime', 'ok', { duration: 4000 });
+        this.matSnackBar.open('Oops! Please try again later', 'ok', { duration: 4000 });
         this.spinner = false;
       }
     });
+    this.subscriptions.push(sub);
   }
 
   viewDetails(id: number): void {
