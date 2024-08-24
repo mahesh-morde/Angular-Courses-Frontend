@@ -42,8 +42,8 @@ export class CourseListComponent implements OnInit {
         this.noData = this.courses.length === 0;
       },
       error: (err) => {
-        console.error('Error fetching courses:', err);
         this.loader = false;
+        this.noData = true;
       }
     });
   }
@@ -57,7 +57,7 @@ export class CourseListComponent implements OnInit {
         this.spinner = false;
       },
       error: (err) => {
-        console.error('Error deleting course:', err);
+        this.matSnackBar.open('Oops Please try again after sometime', 'ok', { duration: 4000 });
         this.spinner = false;
       }
     });

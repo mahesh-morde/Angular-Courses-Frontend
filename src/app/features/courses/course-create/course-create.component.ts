@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../../services/course.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-course-create',
@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 })
 export class CourseCreateComponent implements OnInit {
   courseForm: FormGroup;
-  loading = false; // To manage loading spinner
-  error: string | null = null; // For error messages
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
     private dialogRef: MatDialogRef<CourseCreateComponent>,
-    private router: Router
+    private matSnackBar: MatSnackBar,
+
   ) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
@@ -28,22 +28,21 @@ export class CourseCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Additional initialization logic can be added here if needed
+   
   }
 
   onSubmit(): void {
     if (this.courseForm.valid) {
-      this.loading = true; // Show spinner when submitting
+      this.loading = true;
       this.courseService.createCourse(this.courseForm.value).subscribe(
         (res: any) => {
-          this.loading = false; // Hide spinner
-          this.dialogRef.close(true); // Close dialog on success
-          this.router.navigate(['/courses']); // Navigate to courses list or another page
+          this.loading = false;
+          this.matSnackBar.open('Course Added Sucessfully', 'ok', { duration: 4000 });
+          this.dialogRef.close(true); 
         },
         (error) => {
-          this.loading = false; // Hide spinner
-          this.error = 'Error creating course. Please try again.'; // Set error message
-          console.error('Error creating course:', error);
+          this.loading = false;
+          this.matSnackBar.open('Error creating course. Please try again', 'ok', { duration: 4000 });
         }
       );
     }

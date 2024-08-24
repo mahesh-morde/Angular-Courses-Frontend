@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -7,9 +8,7 @@ import { Injectable } from '@angular/core';
 })
 export class InstanceService {
 
-baseURL1 = 'http://127.0.0.1:8000';
-baseURL = 'https://django-course-api.onrender.com';
-
+  baseURL = environment.baseURL
 
   constructor(private http: HttpClient) {}
 

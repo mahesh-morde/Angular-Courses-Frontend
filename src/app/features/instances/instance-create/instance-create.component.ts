@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CourseService } from '../../../services/course.service';
 import { InstanceService } from '../../../services/instance.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -17,14 +16,12 @@ export class InstanceCreateComponent implements OnInit {
   courses: any[] = [];
   selectedCourse: any = null;
   loading = false;
-  error: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
     private instanceService: InstanceService,
     private matSnackBar: MatSnackBar,
-    private router: Router,
     private dialogRef: MatDialogRef<InstanceCreateComponent>
   ) {
     this.instanceForm = this.fb.group({
@@ -47,8 +44,6 @@ export class InstanceCreateComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error fetching courses:', err);
-        this.error = 'Failed to load courses. Please try again later.';
         this.loading = false;
       }
     });
@@ -76,13 +71,12 @@ export class InstanceCreateComponent implements OnInit {
       this.loading = true;
       this.instanceService.createCourseInstance(dto).subscribe({
         next: () => {
-          this.matSnackBar.open('Instance created successfully', 'ok', { duration: 4000 });
+          this.matSnackBar.open('Course Instance created successfully', 'ok', { duration: 4000 });
           this.dialogRef.close(false);
           this.loading = false;
         },
         error: (err) => {
-          console.error('Error creating instance:', err);
-          this.matSnackBar.open('Instance Already Exist', 'ok', { duration: 4000 });
+          this.matSnackBar.open('Course Instance Already Exist', 'ok', { duration: 4000 });
           this.loading = false;
         }
       });

@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'instances', component: InstanceListComponent },
   { path: 'instances/create', component: InstanceCreateComponent },
   { path: 'instances/:year/:semester/:id', component: InstanceDetailComponent },
-  { path: '', redirectTo: '/courses', pathMatch: 'full' }, // Default route
+  { path: '', redirectTo: '/courses', pathMatch: 'full' },
 ];
 
 @NgModule({

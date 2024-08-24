@@ -38,7 +38,6 @@ export class InstanceDetailComponent implements OnInit {
       this.instanceService.getSpecificCourseInstance(this.year, this.semester).subscribe(
         (data: any) => {
           this.instance = data.find((item: any) => item.id === this.id);
-          console.log(this.instance)
           this.loading = false;
         },
         (err: any) => {

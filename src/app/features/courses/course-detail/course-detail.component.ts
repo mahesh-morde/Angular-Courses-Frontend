@@ -9,13 +9,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class CourseDetailComponent implements OnInit {
 
-  courses: any = {}; // Use an object instead of an array
+  courses: any = {};
   id: number | null = null;
-  loader: boolean = true; // Initialize loader as true
+  loader: boolean = true;
 
   constructor(
     private courseService: CourseService,
-    private dialogRef: MatDialogRef<CourseDetailComponent>, // Corrected type here
+    private dialogRef: MatDialogRef<CourseDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
@@ -29,7 +29,6 @@ export class CourseDetailComponent implements OnInit {
       next: (res: any) => {
         this.courses = res;
         this.loader = false;
-        console.log(res)
       },
       error: (err) => {
         this.loader = false;

@@ -4,17 +4,17 @@
 }
 
 .spinner-wrapper {
-  position: fixed; /* Fixes the position to the viewport */
-  top: 50%; /* Moves the top edge to the middle of the viewport */
-  left: 50%; /* Moves the left edge to the middle of the viewport */
-  transform: translate(-50%, -50%); /* Adjusts the position to truly center */
-  display: flex; /* Uses flexbox for centering */
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
-  background: rgba(255, 255, 255, 0.8); /* Semi-transparent background to obscure content */
-  z-index: 1050; /* Ensures the spinner appears above other content */
+  position: fixed;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh; 
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1050;
 }
 
 .cursor-pointer{
@@ -22,7 +22,7 @@
 }
 
 .spinner-search{
-  position: fixed; /* Fixes the position to the viewport */
-  top: 50%; /* Moves the top edge to the middle of the viewport */
+  position: fixed; 
+  top: 50%;
   left: 50%;
 }

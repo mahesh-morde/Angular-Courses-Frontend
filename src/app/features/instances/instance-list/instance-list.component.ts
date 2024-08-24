@@ -64,7 +64,7 @@ export class InstanceListComponent implements OnInit {
   onSubmit(): void {
     if (this.instanceForm.valid) {
       const { year, semester } = this.instanceForm.value;
-      this.searching = true; // Show spinner for search
+      this.searching = true;
       this.getCourseInstances(year, semester);
     } else {
       this.matSnackBar.open('Please enter year and semester', 'ok', { duration: 4000 });
@@ -82,12 +82,12 @@ export class InstanceListComponent implements OnInit {
           year: inst.year,
           semester: inst.semester
         }));
-        this.searching = false; // Hide spinner after search
+        this.searching = false;
         this.noData = this.instances.length === 0;
       },
       error: (err) => {
-        console.error('Error fetching year/sem instances:', err);
-        this.searching = false; // Hide spinner on error
+        this.matSnackBar.open('Oops Please try again after sometime', 'ok', { duration: 4000 });
+        this.searching = false;
         this.noData = true;
       }
     });
@@ -133,7 +133,6 @@ export class InstanceListComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Error fetching all instances:', err);
         this.loader = false;
         this.noData = true;
       }
@@ -152,12 +151,12 @@ export class InstanceListComponent implements OnInit {
           this.dynamicTable.onDeleteComplete(id);
         },
         error: (err) => {
-          console.error('Error deleting instance:', err);
+          this.matSnackBar.open('Oops Please try again after sometime', 'ok', { duration: 4000 });
           this.dynamicTable.onDeleteComplete(id);
         }
       });
     } else {
-      console.error('Instance not found');
+      this.matSnackBar.open('Oops Please try again after sometime', 'ok', { duration: 4000 });
     }
   }
 
@@ -180,7 +179,7 @@ export class InstanceListComponent implements OnInit {
         }
       });
     } else {
-      console.error('Instance not found');
+      this.matSnackBar.open('Oops Please try again after sometime', 'ok', { duration: 4000 });
     }
   }
 
