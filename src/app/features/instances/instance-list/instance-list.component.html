@@ -26,7 +26,8 @@
       <button class="btn btn-secondary" (click)="viewCourses()">View Courses</button>
     </div>
   </form>
-</main>
+
+  <hr>
 
   <dynamic-table *ngIf="!noData"
     [columns]="data"
@@ -40,3 +41,4 @@
     <null-screen></null-screen>
   </div>
 
+</main>

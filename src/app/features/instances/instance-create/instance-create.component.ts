@@ -16,8 +16,8 @@ export class InstanceCreateComponent implements OnInit {
   instanceForm: FormGroup;
   courses: any[] = [];
   selectedCourse: any = null;
-  loading = false;  // Add loading state
-  error: string | null = null; // Add error state
+  loading = false;
+  error: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -25,11 +25,11 @@ export class InstanceCreateComponent implements OnInit {
     private instanceService: InstanceService,
     private matSnackBar: MatSnackBar,
     private router: Router,
-    private dialogRef: MatDialogRef<InstanceCreateComponent> // Fixed dialogRef type
+    private dialogRef: MatDialogRef<InstanceCreateComponent>
   ) {
     this.instanceForm = this.fb.group({
       course_code: [null, Validators.required],
-      course_title: [{ value: '', disabled: true }], // Disabled input field
+      course_title: [{ value: '', disabled: true }],
       year: [null, [Validators.required, Validators.min(1900), Validators.max(2100)]],
       semester: [null, [Validators.required, Validators.min(1), Validators.max(8)]],
     });
@@ -65,7 +65,7 @@ export class InstanceCreateComponent implements OnInit {
   onSubmit(): void {
     if (this.instanceForm.valid) {
       const { year, semester } = this.instanceForm.value;
-      const course_id = this.selectedCourse.id; // The selected course's ID
+      const course_id = this.selectedCourse.id;
   
       const dto = {
         year: year,
@@ -73,17 +73,17 @@ export class InstanceCreateComponent implements OnInit {
         course: course_id
       };
   
-      this.loading = true;  // Set loading state to true
+      this.loading = true;
       this.instanceService.createCourseInstance(dto).subscribe({
         next: () => {
           this.matSnackBar.open('Instance created successfully', 'ok', { duration: 4000 });
-          this.router.navigate(['/instances']);
-          this.loading = false; // Set loading state to false
+          this.dialogRef.close(false);
+          this.loading = false;
         },
         error: (err) => {
           console.error('Error creating instance:', err);
-          this.matSnackBar.open('Failed to create instance', 'ok', { duration: 4000 });
-          this.loading = false; // Set loading state to false
+          this.matSnackBar.open('Instance Already Exist', 'ok', { duration: 4000 });
+          this.loading = false;
         }
       });
     } else {

@@ -11,13 +11,13 @@ export class InstanceDetailComponent implements OnInit {
   year: number | null = null;
   semester: number | null = null;
   id: number | null = null;
-  instance: any = null;  // To hold the details of the instance
+  instance: any = null;
   loading: boolean = true;
   error: string | null = null;
 
   constructor(
     private instanceService: InstanceService,
-    private dialogRef: MatDialogRef<InstanceListComponent>,
+    private dialogRef: MatDialogRef<InstanceDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
@@ -37,7 +37,7 @@ export class InstanceDetailComponent implements OnInit {
     if (this.year && this.semester && this.id) {
       this.instanceService.getSpecificCourseInstance(this.year, this.semester).subscribe(
         (data: any) => {
-          this.instance = data.find((item: any) => item.id === this.id); // Adjust as per API response
+          this.instance = data.find((item: any) => item.id === this.id);
           console.log(this.instance)
           this.loading = false;
         },
@@ -48,7 +48,6 @@ export class InstanceDetailComponent implements OnInit {
       );
     }
   }
-
 
   goBack(): void {
     this.dialogRef.close(false); 

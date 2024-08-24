@@ -1,11 +1,13 @@
 <div class="container my-5">
 
   <!-- Loading Spinner -->
-  <div *ngIf="loading" class="text-center mb-4">
+  <div *ngIf="loading" class="text-center spinner-position">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
+
+  <div *ngIf="!loading">
 
   <!-- Error Message -->
   <div *ngIf="error" class="alert alert-danger mb-4">
@@ -13,12 +15,6 @@
   </div>
 
   <div class="container my-2">
-    <!-- Loading Spinner -->
-    <div *ngIf="loading" class="text-center mb-4">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
   
     <!-- Error Message -->
     <div *ngIf="error" class="alert alert-danger mb-4">
@@ -50,10 +46,10 @@
             <dt class="col-sm-3">Description:</dt>
             <dd class="col-sm-9">{{ instance?.course?.description }}</dd>
           </dl>
-          <button class="btn btn-secondary float-end" (click)="goBack()">Back</button>
+          <button class="btn btn-secondary float-end mt-5" (click)="goBack()">Back</button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
 </div>

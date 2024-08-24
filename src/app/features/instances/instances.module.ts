@@ -19,9 +19,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
     ReactiveFormsModule,
     MatFormField,
     MatLabel,
-    MatError,
-    
-    
+    MatError,    
   ]
 })
 export class InstancesModule { }

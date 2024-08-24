@@ -18,8 +18,8 @@ export class InstanceListComponent implements OnInit {
   noData: boolean = false;
   loader: boolean = false;
   instanceForm: FormGroup;
-  data = ['id', 'course_title', 'course_code', 'year', 'semester']; // Exclude 'actions' from here
-  headerList = ['Instance ID', 'Course Title', 'Course Code', 'Year', 'Semester']; // Headers for these columns
+  data = ['id', 'course_title', 'course_code', 'year', 'semester'];
+  headerList = ['Instance ID', 'Course Title', 'Course Code', 'Year', 'Semester'];
 
   constructor(
     private instanceService: InstanceService,
@@ -119,16 +119,17 @@ export class InstanceListComponent implements OnInit {
       const dialogRef = this.dialog.open(InstanceDetailComponent, {
         width: '60vw',
         height: '60vh',
-        panelClass: 'custom-dialog-container',
         data: {
           course_id: id,
           course_year: year,
           course_semester: semester
         }
       });
-
-      dialogRef.afterClosed().subscribe(() => {
-        this.getAllInstances();
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.getAllInstances();
+        }
       });
     } else {
       console.error('Instance not found');
@@ -138,13 +139,13 @@ export class InstanceListComponent implements OnInit {
   createNewInstance() {
     const dialogRef = this.dialog.open(InstanceCreateComponent, {
       width: '60vw',
-      height: '60vh',
-      panelClass: 'custom-dialog-container',
+      height: '70vh',
     });
     dialogRef.afterClosed().subscribe(() => {
       this.getAllInstances();
     });
   }
+  
   
 
   fetchAllInstances() {

@@ -1,19 +1,20 @@
 <div class="container my-5">
 
   <!-- Loading Spinner -->
-  <div *ngIf="loading" class="text-center mb-4">
-    <div class="spinner-border text-primary" role="status">
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border text-primary spinner-position" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 
+  <div *ngIf="!loading">
   <!-- Error Message -->
   <div *ngIf="error" class="alert alert-danger mb-4">
     {{ error }}
   </div>
 
   <!-- Form Card -->
-  <h2 class="fw-semibold mb-4">Create New Instance Form</h2>
+  <h1 class="fw-semibold mb-4">Create New Instance</h1>
   <div class="card">
     <div class="card-body">
       <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
@@ -59,11 +60,12 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mt-5">
           <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
           <button type="submit" class="btn btn-primary" [disabled]="instanceForm.invalid">Create</button>
         </div>
       </form>
     </div>
   </div>
+</div>
 </div>
