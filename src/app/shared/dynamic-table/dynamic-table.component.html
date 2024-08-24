@@ -1,32 +1,29 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-hover table-striped">
-
-  <!-- Dynamic Columns -->
-  <ng-container *ngFor="let column of columns" [matColumnDef]="column">
-    <th mat-header-cell *matHeaderCellDef class="text-capitalize text-center table-header"> 
-      {{ headerData[columns.indexOf(column)] }} 
-    </th>
-    <td mat-cell *matCellDef="let element" class="text-center"> 
-      {{ element[column] }} 
-    </td>
-  </ng-container>
-
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef class="text-center table-header"> Actions </th>
-    <td mat-cell *matCellDef="let element" class="text-center">
-      <ng-container *ngIf="!loadingStates[element.id]; else spinnerTemplate">
-        <i class="fa-solid fa-2x fa-circle-info me-3 custom-icon" (click)="viewDetails(element.id)" matTooltip="View Details"></i>
-        <i class="fa-solid fa-2x fa-trash text-danger custom-icon" (click)="deleteCourse(element.id)" matTooltip="Delete"></i>
-      </ng-container>
-      <ng-template #spinnerTemplate>
-        <div class="spinner-border text-primary spinner-position" role="status">
-          <span class="visually-hidden">Loading...</span>
+<table class="table table-hover table-striped">
+  <!-- Serial Number Column -->
+  <thead>
+    <tr>
+      <th class="text-center"> # </th>
+      <th *ngFor="let header of headerData" class="text-capitalize text-center">{{ header }}</th>
+      <th class="text-center"> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let element of dataSource; let index = index">
+      <td class="text-center">{{ index + 1 }}</td>
+      <td *ngFor="let column of columns" class="text-center">{{ element[column] }}</td>
+      <td class="text-center">
+        <div class="d-flex justify-content-center align-items-center">
+          <ng-container *ngIf="!loadingStates[element.id]; else spinnerTemplate">
+            <i class="fa-solid fa-2x fa-circle-info me-3 custom-icon" (click)="viewDetails(element.id)" matTooltip="View Details"></i>
+            <i class="fa-solid fa-2x fa-trash text-danger custom-icon" (click)="deleteCourse(element.id)" matTooltip="Delete"></i>
+          </ng-container>
+          <ng-template #spinnerTemplate>
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </ng-template>
         </div>
-      </ng-template>
-    </td>
-  </ng-container>
-  
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-primary"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="align-middle"></tr>
+      </td>
+    </tr>
+  </tbody>
 </table>

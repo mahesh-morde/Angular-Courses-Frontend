@@ -18,6 +18,7 @@ export class InstanceListComponent implements OnInit {
   instances: any[] = [];
   noData: boolean = false;
   loader: boolean = false;
+  searching: boolean = false;
   instanceForm: FormGroup;
   years: any[] = [];
   semesters: any[] = [];
@@ -43,7 +44,7 @@ export class InstanceListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllInstances()
+    this.getAllInstances();
   }
 
   onYearChange(event: any): void {
@@ -63,6 +64,7 @@ export class InstanceListComponent implements OnInit {
   onSubmit(): void {
     if (this.instanceForm.valid) {
       const { year, semester } = this.instanceForm.value;
+      this.searching = true; // Show spinner for search
       this.getCourseInstances(year, semester);
     } else {
       this.matSnackBar.open('Please enter year and semester', 'ok', { duration: 4000 });
@@ -70,7 +72,6 @@ export class InstanceListComponent implements OnInit {
   }
 
   getCourseInstances(year: number, semester: number): void {
-    this.loader = true;
     this.instanceService.getSpecificCourseInstance(year, semester).subscribe({
       next: (res: any) => {
         this.instances = res.map((inst: any) => ({
@@ -81,12 +82,12 @@ export class InstanceListComponent implements OnInit {
           year: inst.year,
           semester: inst.semester
         }));
-        this.loader = false;
+        this.searching = false; // Hide spinner after search
         this.noData = this.instances.length === 0;
       },
       error: (err) => {
         console.error('Error fetching year/sem instances:', err);
-        this.loader = false;
+        this.searching = false; // Hide spinner on error
         this.noData = true;
       }
     });
@@ -159,7 +160,6 @@ export class InstanceListComponent implements OnInit {
       console.error('Instance not found');
     }
   }
-  
 
   viewDetails(id: number): void {
     const instance = this.instances.find(inst => inst.id === id);
@@ -174,7 +174,6 @@ export class InstanceListComponent implements OnInit {
           course_semester: semester
         }
       });
-  
       dialogRef.afterClosed().subscribe(result => {
         if(result){
           this.getAllInstances();

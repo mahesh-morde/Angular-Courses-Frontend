@@ -1,10 +1,13 @@
 <main class="container my-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <!-- Header and Buttons -->
+  <div *ngIf="!loader" class="d-flex justify-content-between align-items-center mb-4">
     <div>
-      <span class="text-primary d-flex align-items-center mb-4">
-        <i (click)="viewCourses()" class="fa-solid fa-arrow-left fa-1x me-2" matTooltip="Go Back To Courses"></i>
+
+      <span (click)="viewCourses()" class="text-primary d-flex align-items-center mb-4 cursor-pointer">
+        <i class="fa-solid fa-arrow-left fa-1x me-2" matTooltip="Go Back To Instances"></i>
         <p class="mb-0">Back</p>
       </span>
+    
       <h1 class="fw-bold">Instance List</h1>
       <p class="text-muted mb-0">This list displays the course instances associated with specific years and semesters, allowing you to manage and view them easily.</p>
     </div>
@@ -13,45 +16,56 @@
     </button>
   </div>
 
-  
-    <!-- Form to Input Year and Semester -->
-    <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
-      <div class="row g-3 mb-4 justify-content-end">
-        <div class="col-md-2">
-          <label for="year" class="form-label">Year</label>
-          <select id="year" formControlName="year" class="form-select form-select-sm" (change)="onYearChange($event)">
-            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <label for="semester" class="form-label">Semester</label>
-          <select id="semester" formControlName="semester" class="form-select form-select-sm">
-            <option *ngFor="let semester of semesters" [value]="semester">{{ semester }}</option>
-          </select>
-        </div>
-        <div class="col-md-1 d-flex align-items-end">
-          <i (click)="onSubmit()" class="fa-solid fa-magnifying-glass fa-2x custom-size-icon me-3" matTooltip="Fetch Instances"></i>
-          <i (click)="fetchAllInstances()" class="fa-solid fa-rectangle-list fa-2x custom-size-icon me-2" matTooltip="Fetch All Instances"></i>
-        </div>
-      </div>
-      
-    </form>
+  <!-- Loader Spinner for page search -->
+  <div *ngIf="loader" class="spinner-wrapper">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
 
-  
+  <!-- Loader Spinner for specific search in this component -->
+  <div *ngIf="searching" class="spinner-search">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Form to Input Year and Semester -->
+  <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3 mb-4 justify-content-end">
+      <div class="col-md-2">
+        <label for="year" class="form-label">Year</label>
+        <select id="year" formControlName="year" class="form-select form-select-sm" (change)="onYearChange($event)">
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label for="semester" class="form-label">Semester</label>
+        <select id="semester" formControlName="semester" class="form-select form-select-sm">
+          <option *ngFor="let semester of semesters" [value]="semester">{{ semester }}</option>
+        </select>
+      </div>
+      <div class="col-md-1 d-flex align-items-end">
+        <i (click)="onSubmit()" class="fa-solid fa-magnifying-glass fa-2x custom-size-icon me-3" matTooltip="Fetch Instances"></i>
+        <i (click)="fetchAllInstances()" class="fa-solid fa-rectangle-list fa-2x custom-size-icon me-2" matTooltip="Fetch All Instances"></i>
+      </div>
+    </div>
+  </form>
 
   <hr>
 
-  <dynamic-table *ngIf="!noData"
+  <!-- Dynamic Table -->
+  <dynamic-table *ngIf="!searching && !noData"
     [columns]="data"
-    [headerData] = "headerList"
+    [headerData]="headerList"
     [dataSource]="instances"
     [spinner]="spinner"
     (delete)="deleteInstance($event)"
     (view)="viewDetails($event)">
   </dynamic-table>
 
-  <div *ngIf="noData">
+  <!-- No Data Placeholder -->
+  <div *ngIf="noData && !searching">
     <null-screen></null-screen>
   </div>
-
 </main>

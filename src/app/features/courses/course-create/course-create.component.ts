@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-course-create',
   templateUrl: './course-create.component.html',
-  styleUrls: ['./course-create.component.css'], // Corrected property name
+  styleUrls: ['./course-create.component.css'],
 })
 export class CourseCreateComponent implements OnInit {
   courseForm: FormGroup;
@@ -17,7 +17,7 @@ export class CourseCreateComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
-    private dialogRef: MatDialogRef<CourseCreateComponent>, // Updated to use the correct component
+    private dialogRef: MatDialogRef<CourseCreateComponent>,
     private router: Router
   ) {
     this.courseForm = this.fb.group({

@@ -14,20 +14,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CourseListComponent implements OnInit {
   courses: any[] = [];
-  data = ['id', 'title', 'course_code', 'description']; 
+  data = ['id', 'title', 'course_code', 'description'];
   headerList = ['Course ID', 'Course Title', 'Course Code', 'Description'];
 
   noData: boolean = false;
   loader: boolean = false;
-  spinner: boolean = false
+  spinner: boolean = false;
   @ViewChild(DynamicTableComponent) dynamicTable!: DynamicTableComponent;
-
 
   constructor(
     private courseService: CourseService,
     private router: Router,
     public dialog: MatDialog,
-    private matSnackBar: MatSnackBar,
+    private matSnackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -36,18 +35,31 @@ export class CourseListComponent implements OnInit {
 
   getAllCourses() {
     this.loader = true;
-    this.courseService.getCourses().subscribe((res: any) => {
-      this.courses = res;
-      this.loader = false;
-      this.noData = this.courses.length === 0;
+    this.courseService.getCourses().subscribe({
+      next: (res: any) => {
+        this.courses = res;
+        this.loader = false;
+        this.noData = this.courses.length === 0;
+      },
+      error: (err) => {
+        console.error('Error fetching courses:', err);
+        this.loader = false;
+      }
     });
   }
 
   deleteCourse(id: number) {
     this.spinner = true;
-    this.courseService.deleteCourse(id).subscribe(() => {
-      this.matSnackBar.open('Instance deleted successfully', 'ok', { duration: 4000 });
-      this.getAllCourses();
+    this.courseService.deleteCourse(id).subscribe({
+      next: () => {
+        this.matSnackBar.open('Course deleted successfully', 'ok', { duration: 4000 });
+        this.getAllCourses();
+        this.spinner = false;
+      },
+      error: (err) => {
+        console.error('Error deleting course:', err);
+        this.spinner = false;
+      }
     });
   }
 
@@ -59,24 +71,24 @@ export class CourseListComponent implements OnInit {
         course_id: id,
       },
     });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.getAllCourses();
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.getAllCourses();
+      }
     });
   }
 
   createNewCourse() {
     const dialogRef = this.dialog.open(CourseCreateComponent, {
       width: '60vw',
-      height: '60vh',
+      height: '70vh',
     });
-
     dialogRef.afterClosed().subscribe(() => {
       this.getAllCourses();
     });
   }
 
-  viewInstances(){
+  viewInstances() {
     this.router.navigateByUrl('instances');
   }
 }

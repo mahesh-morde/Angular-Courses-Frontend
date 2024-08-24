@@ -1,37 +1,42 @@
-<main class="container my-5">
+<div class="container my-5">
+
+  <!-- Header and Buttons -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
+      <span (click)="viewInstances()" class="text-primary d-flex align-items-center mb-4 cursor-pointer">
+        <i class="fa-solid fa-arrow-left fa-1x me-2" matTooltip="Go Back To Instances"></i>
+        <p class="mb-0">Back</p>
+      </span>
       <h1 class="fw-bold">Course List</h1>
-      <p class="text-muted mb-0">This is the list of all available courses. You can add new courses or view existing instances from here.</p>
+      <p class="text-muted mb-0">This list displays all the courses, allowing you to manage and view them easily.</p>
     </div>
-    <div>
-      <button class="btn btn-primary me-2" (click)="createNewCourse()">Add New Course</button>
-      <button class="btn btn-secondary" (click)="viewInstances()">View Instances</button>
+    <button class="btn btn-primary" (click)="createNewCourse()" matTooltip="Create New Course">
+      <i class="fa-solid fa-plus me-2"></i>Create Course
+    </button>
+  </div>
+
+  <!-- Loader Spinner -->
+  <div *ngIf="loader" class="spinner-wrapper">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 
+  <hr>
 
-  <div *ngIf="noData" class="text-center my-5">
-    <div class="d-flex flex-column align-items-center justify-content-center">
-      <img class="null-screen img-fluid" src="assets/images/null_screen.png" alt="No Data Found Image">
-      <h2 class="mt-3 markify-text-medium-18 markify-text-grey-eight">
-        No Data Found
-      </h2>
-    </div>
+  <!-- Dynamic Table -->
+  <dynamic-table *ngIf="!loader && !noData"
+    [columns]="data"
+    [headerData]="headerList"
+    [dataSource]="courses"
+    [spinner]="spinner"
+    (delete)="deleteCourse($event)"
+    (view)="viewDetails($event)">
+  </dynamic-table>
+
+  <!-- No Data Placeholder -->
+  <div *ngIf="noData && !loader">
+    <null-screen></null-screen>
   </div>
-</main>
 
-
-
-    <dynamic-table *ngIf="!noData"
-      [columns]="data"
-      [headerData] = "headerList"
-      [spinner]="spinner"
-      [dataSource]="courses" 
-      (delete)="deleteCourse($event)" 
-      (view)="viewDetails($event)">
-    </dynamic-table>
-  
-    
-  
-  
+</div>

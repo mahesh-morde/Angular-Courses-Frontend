@@ -1,19 +1,30 @@
-
-
 <div class="container my-5">
-    <!-- Display Course Details -->
-    <h2 class="mb-5">Course Details</h2>
-    <div class="card">
-      <div class="card-body">
-        <h3>{{ courses.title }}</h3>
-        <p><strong>Course Code:</strong> {{ courses.course_code }}</p>
-        <p><strong>Description:</strong> {{ courses.description }}</p>
-      </div>
-    </div>
-  
-    <!-- Back Button -->
-    <div class="d-flex justify-content-end mt-4">
-      <button class="btn btn-secondary" (click)="goBack()">Back</button>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loader" class="text-center spinner-position">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
-  
+
+  <!-- Course Details -->
+  <div *ngIf="!loader && courses">
+    <h2 class="fw-semibold mb-5">Course Details</h2>
+    <div class="card">
+      <div class="card-body">
+        <dl class="row mb-0">
+          <dt class="col-sm-3">Title:</dt>
+          <dd class="col-sm-9">{{ courses?.title }}</dd>
+
+          <dt class="col-sm-3">Course Code:</dt>
+          <dd class="col-sm-9">{{ courses?.course_code }}</dd>
+
+          <dt class="col-sm-3">Description:</dt>
+          <dd class="col-sm-9">{{ courses?.description }}</dd>
+        </dl>
+        <button class="btn btn-secondary float-end mt-5" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+
+</div>

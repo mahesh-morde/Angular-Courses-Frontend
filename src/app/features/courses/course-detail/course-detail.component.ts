@@ -1,40 +1,43 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CourseService } from '../../../services/course.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { InstanceListComponent } from '../../instances/instance-list/instance-list.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
-  styleUrl: './course-detail.component.css'
+  styleUrls: ['./course-detail.component.css']
 })
 export class CourseDetailComponent implements OnInit {
 
-  courses: any = new Array();
+  courses: any = {}; // Use an object instead of an array
   id: number | null = null;
+  loader: boolean = true; // Initialize loader as true
 
   constructor(
     private courseService: CourseService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private dialogRef: MatDialogRef<InstanceListComponent>,
+    private dialogRef: MatDialogRef<CourseDetailComponent>, // Corrected type here
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit(): void {
     const id = this.data.course_id;
-    this.getCourseDetails(id)
+    this.getCourseDetails(id);
   }
 
-  getCourseDetails(id: any){
-    this.courseService.getCourseById(id).subscribe((res: any) => {
-    this.courses = res;
-    console.log("courses :", this.courses)
-  });
-}
+  getCourseDetails(id: number): void {
+    this.courseService.getCourseById(id).subscribe({
+      next: (res: any) => {
+        this.courses = res;
+        this.loader = false;
+        console.log(res)
+      },
+      error: (err) => {
+        this.loader = false;
+      }
+    });
+  }
 
-goBack(): void {
-  this.dialogRef.close(false); 
-}
+  goBack(): void {
+    this.dialogRef.close(false); 
+  }
 }

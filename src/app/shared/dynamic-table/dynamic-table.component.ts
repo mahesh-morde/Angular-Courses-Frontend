@@ -19,7 +19,7 @@ export class DynamicTableComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns']) {
-      this.displayedColumns = [...this.columns, 'actions'];
+      this.displayedColumns = ['serialNumber', ...this.columns, 'actions'];
     }
   }
 

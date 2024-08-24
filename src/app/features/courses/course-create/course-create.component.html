@@ -1,50 +1,48 @@
 <div class="container my-5">
 
-    <!-- Loading Spinner -->
-    <div *ngIf="loading" class="text-center mb-4">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center mb-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-  
-    <!-- Error Message -->
-    <div *ngIf="error" class="alert alert-danger mb-4">
-      {{ error }}
-    </div>
-  
-    <!-- Form Card -->
-    <h2 class="fw-semibold mb-4">Register a New Course</h2>
-    <div class="card">
-    
-      <div class="card-body">
-        <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-  
-          <!-- Course Title Input -->
-          <div class="mb-3">
-            <label for="courseTitle" class="form-label">Course Title:</label>
-            <input type="text" id="courseTitle" formControlName="title" class="form-control" placeholder="Enter course title">
-          </div>
-  
-          <!-- Course Code Input -->
-          <div class="mb-3">
-            <label for="courseCode" class="form-label">Course Code:</label>
-            <input type="text" id="courseCode" formControlName="course_code" class="form-control" placeholder="Enter course code">
-          </div>
-  
-          <!-- Course Description Input -->
-          <div class="mb-3">
-            <label for="courseDescription" class="form-label">Course Description:</label>
-            <textarea id="courseDescription" formControlName="description" class="form-control" rows="4" placeholder="Enter course description"></textarea>
-          </div>
-  
-          <!-- Action Buttons -->
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary me-2" (click)="goBack()">Back</button>
-            <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  
   </div>
-  
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger mb-4">
+    {{ error }}
+  </div>
+
+  <!-- Form Card -->
+  <h2 class="fw-semibold mb-4">Register a New Course</h2>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+
+        <!-- Course Title Input -->
+        <div class="mb-3">
+          <label for="courseTitle" class="form-label">Course Title:</label>
+          <input type="text" id="courseTitle" formControlName="title" class="form-control" placeholder="Enter course title">
+        </div>
+
+        <!-- Course Code Input -->
+        <div class="mb-3">
+          <label for="courseCode" class="form-label">Course Code:</label>
+          <input type="text" id="courseCode" formControlName="course_code" class="form-control" placeholder="Enter course code">
+        </div>
+
+        <!-- Course Description Input -->
+        <div class="mb-3">
+          <label for="courseDescription" class="form-label">Course Description:</label>
+          <textarea id="courseDescription" formControlName="description" class="form-control" rows="4" placeholder="Enter course description"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end mt-5">
+          <button type="button" class="btn btn-secondary me-2" (click)="goBack()">Back</button>
+          <button type="submit" class="btn btn-primary" [disabled]="courseForm.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
