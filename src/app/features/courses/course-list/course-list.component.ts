@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CourseService } from '../../../services/course.service';
 import { Router } from '@angular/router';
 import { CourseDetailComponent } from '../course-detail/course-detail.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CourseCreateComponent } from '../course-create/course-create.component';
+import { DynamicTableComponent } from '../../../shared/dynamic-table/dynamic-table.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-course-list',
@@ -17,11 +19,15 @@ export class CourseListComponent implements OnInit {
 
   noData: boolean = false;
   loader: boolean = false;
+  spinner: boolean = false
+  @ViewChild(DynamicTableComponent) dynamicTable!: DynamicTableComponent;
+
 
   constructor(
     private courseService: CourseService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private matSnackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +44,9 @@ export class CourseListComponent implements OnInit {
   }
 
   deleteCourse(id: number) {
+    this.spinner = true;
     this.courseService.deleteCourse(id).subscribe(() => {
+      this.matSnackBar.open('Instance deleted successfully', 'ok', { duration: 4000 });
       this.getAllCourses();
     });
   }

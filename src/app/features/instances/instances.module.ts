@@ -6,6 +6,7 @@ import { InstanceCreateComponent } from './instance-create/instance-create.compo
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
     MatFormField,
     MatLabel,
     MatError,    
+    MatTooltipModule
   ]
 })
 export class InstancesModule { }

@@ -7,8 +7,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { CoursesModule } from './features/courses/courses.module';
 import { InstancesModule } from './features/instances/instances.module';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     InstancesModule,
     HttpClientModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTooltipModule
   ],
   providers: [
     provideClientHydration(),

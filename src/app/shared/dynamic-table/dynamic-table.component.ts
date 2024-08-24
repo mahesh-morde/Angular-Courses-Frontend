@@ -6,27 +6,33 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from
   styleUrls: ['./dynamic-table.component.css']
 })
 export class DynamicTableComponent implements OnChanges {
-  @Input() columns: string[] = []; // Columns to display, excluding 'actions'
-  @Input() headerData: string[] = []; // Headers corresponding to columns
+  @Input() columns: string[] = []; 
+  @Input() headerData: string[] = []; 
   @Input() dataSource: any[] = []; 
+  @Input() spinner: boolean = false;
 
   @Output() delete = new EventEmitter<number>();
   @Output() view = new EventEmitter<number>();
 
-  displayedColumns: string[] = []; // Columns including 'actions'
+  displayedColumns: string[] = [];
+  loadingStates: { [key: number]: boolean } = {};
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['columns']) {
-      // Ensure 'actions' is added to the list of columns
       this.displayedColumns = [...this.columns, 'actions'];
     }
   }
 
   deleteCourse(id: number) {
+    this.loadingStates[id] = true;
     this.delete.emit(id);
   }
 
   viewDetails(id: number) {
     this.view.emit(id);
+  }
+
+  onDeleteComplete(id: number) {
+    this.loadingStates[id] = false;
   }
 }

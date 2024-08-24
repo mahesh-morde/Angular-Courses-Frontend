@@ -26,6 +26,7 @@
     <dynamic-table *ngIf="!noData"
       [columns]="data"
       [headerData] = "headerList"
+      [spinner]="spinner"
       [dataSource]="courses" 
       (delete)="deleteCourse($event)" 
       (view)="viewDetails($event)">

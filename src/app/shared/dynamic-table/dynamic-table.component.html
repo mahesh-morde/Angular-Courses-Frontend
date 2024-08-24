@@ -1,5 +1,3 @@
-<main class="container my-10">
-
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table table-hover table-striped">
 
   <!-- Dynamic Columns -->
@@ -16,12 +14,19 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef class="text-center table-header"> Actions </th>
     <td mat-cell *matCellDef="let element" class="text-center">
-      <i class="fas fa-2x fa-info-circle text-primary me-3" (click)="viewDetails(element.id)" style="cursor: pointer;"></i>
-      <i class="fas fa-2x fa-trash-alt text-danger" (click)="deleteCourse(element.id)" style="cursor: pointer;"></i>
+      <ng-container *ngIf="!loadingStates[element.id]; else spinnerTemplate">
+        <i class="fa-solid fa-2x fa-circle-info me-3 custom-icon" (click)="viewDetails(element.id)" matTooltip="View Details"></i>
+        <i class="fa-solid fa-2x fa-trash text-danger custom-icon" (click)="deleteCourse(element.id)" matTooltip="Delete"></i>
+      </ng-container>
+      <ng-template #spinnerTemplate>
+        <div class="spinner-border text-primary spinner-position" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </ng-template>
     </td>
   </ng-container>
+  
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-primary"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="align-middle"></tr>
 </table>
-</main>
