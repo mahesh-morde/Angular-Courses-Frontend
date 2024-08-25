@@ -21,7 +21,7 @@ This repository contains the frontend application for managing and displaying co
 
 [please visit](https://github.com/mahesh-morde/Django_Course_API) and follow instructions from README file for running full application (BackEnd + FrontEnd) using docker.
 
-# AngularCourses
+## AngularCourses
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
 
