@@ -45,7 +45,7 @@ export class CourseCreateComponent implements OnInit {
           this.loading = false;
           let errorMsg = 'Error creating course. Please try again';
           if (error.status === 400) {
-            errorMsg = 'Course code already exists. Please use a different code.';
+            errorMsg = 'Course code already exists. Please use a different Course-code.';
           }
           this.matSnackBar.open(errorMsg, 'ok', { duration: 4000 });
         }

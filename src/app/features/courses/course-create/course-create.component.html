@@ -1,15 +1,15 @@
 <div class="container my-5">
 
   <!-- Loading Spinner -->
-  <div *ngIf="loading" class="text-center mb-4">
+  <div *ngIf="loading" class="text-center mb-4 spinner-position">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 
   <!-- Form Card -->
-  <h2 class="fw-semibold mb-4">Register a New Course</h2>
-  <div class="card">
+  <h2 *ngIf="!loading" class="fw-semibold mb-4">Register a New Course</h2>
+  <div *ngIf="!loading" class="card">
     <div class="card-body">
       <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
 
