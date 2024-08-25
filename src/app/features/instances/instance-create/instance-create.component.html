@@ -8,8 +8,8 @@
   </div>
 
   <!-- Form Card -->
-  <h1 class="fw-semibold mb-4">Create New Instance</h1>
-  <div class="card">
+  <h1 *ngIf="!loading" class="fw-semibold mb-4">Create New Instance</h1>
+  <div *ngIf="!loading" class="card">
     <div class="card-body">
       <form [formGroup]="instanceForm" (ngSubmit)="onSubmit()">
 
