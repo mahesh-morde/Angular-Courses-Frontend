@@ -1,7 +1,4 @@
 
-### Frontend Repository
-
-```markdown
 # Courses UI - Frontend Application for Course Management
 
 This repository contains the frontend application for managing and displaying course data. It is built using Angular.
