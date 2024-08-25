@@ -7,6 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CoursesRoutingModule } from './courses-routing.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CoursesRoutingModule } from './courses-routing.module';
     SharedModule,
     ReactiveFormsModule,
     MatDialogModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    MatTooltipModule
   ]
 })
 export class CoursesModule { }
