@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CourseListComponent } from './features/courses/course-list/course-list.component';
-import { CourseCreateComponent } from './features/courses/course-create/course-create.component';
-import { CourseDetailComponent } from './features/courses/course-detail/course-detail.component';
-import { InstanceListComponent } from './features/instances/instance-list/instance-list.component';
-import { InstanceCreateComponent } from './features/instances/instance-create/instance-create.component';
-import { InstanceDetailComponent } from './features/instances/instance-detail/instance-detail.component';
+import { ErrorPageComponent } from './shared/error-404-page/error-page';
 
 const routes: Routes = [
-  { path: 'courses', component: CourseListComponent },
-  { path: 'create/new', component: CourseCreateComponent },
-  { path: 'courses/:id', component: CourseDetailComponent },
-  { path: 'instances', component: InstanceListComponent },
-  { path: 'instances/create', component: InstanceCreateComponent },
-  { path: 'instances/:year/:semester/:id', component: InstanceDetailComponent },
+  {
+    path: 'courses',
+    loadChildren: () => import('./features/courses/courses.module').then(m => m.CoursesModule)
+  },
+  {
+    path: 'instances',
+    loadChildren: () => import('./features/instances/instances.module').then(m => m.InstancesModule)
+  },
   { path: '', redirectTo: '/courses', pathMatch: 'full' },
+  { path: '**', component: ErrorPageComponent }
 ];
 
 @NgModule({

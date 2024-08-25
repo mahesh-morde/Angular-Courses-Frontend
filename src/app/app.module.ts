@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CoursesModule } from './features/courses/courses.module';
 import { InstancesModule } from './features/instances/instances.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
@@ -22,7 +21,6 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
     CoursesModule,
     InstancesModule,
     HttpClientModule,
-    NgbModule,
     FontAwesomeModule,
     MatTooltipModule,
     CoursesModule,

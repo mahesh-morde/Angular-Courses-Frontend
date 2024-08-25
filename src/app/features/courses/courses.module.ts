@@ -6,6 +6,7 @@ import { CourseCreateComponent } from './course-create/course-create.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CoursesRoutingModule } from './courses-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SharedModule,
     ReactiveFormsModule,
     MatDialogModule,
+    CoursesRoutingModule
   ]
 })
 export class CoursesModule { }
