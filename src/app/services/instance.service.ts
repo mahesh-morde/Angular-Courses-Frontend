@@ -8,9 +8,13 @@ import { environment } from '../../environments/environment';
 })
 export class InstanceService {
 
-  baseURL = environment.baseURL
+  baseURL:string
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { 
+    this.baseURL = window.location.origin === 'http://localhost:4200' 
+        ? environment.LocalBackend 
+        : environment.DeployedBackend;
+  }
 
   getAllInstances(){
     return this.http.get(`${this.baseURL}/api/instances/`);

@@ -7,9 +7,13 @@ import { environment } from '../../environments/environment';
 })
 export class CourseService {
 
-  baseURL = environment.baseURL
+  baseURL:string
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseURL = window.location.origin === 'http://localhost:4200' 
+        ? environment.LocalBackend 
+        : environment.DeployedBackend;
+  }
 
   getCourses() {
     return this.http.get(`${this.baseURL}/api/courses/`);
