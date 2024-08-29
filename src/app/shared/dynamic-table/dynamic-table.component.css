@@ -1,8 +1,12 @@
 .table-header {
-  font-size: 1rem; 
-  font-weight: bold;
+  white-space: nowrap;
+  color: rgb(115, 88, 88);
 }
 
 .custom-icon{
   cursor: pointer;
+}
+
+.description-column {
+  width: 50rem;
 }

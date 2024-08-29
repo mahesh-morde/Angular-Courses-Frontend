@@ -5,3 +5,7 @@
 .card{
     border:none;
 }
+
+.custom-margin-top{
+    margin: 8.5rem 2rem 0 0;
+}

@@ -3,17 +3,19 @@
   <!-- Header and Buttons -->
   <div *ngIf="!loader" class="d-flex justify-content-between align-items-center mb-4">
     <div>
-      <span (click)="viewInstances()" class="text-primary d-flex align-items-center mb-4 cursor-pointer">
-        <i class="fa-solid fa-arrow-left fa-1x me-2" matTooltip="Back To Instances"></i>
-        <p class="mb-0" matTooltip="Back To Instances">Back To Instances</p>
-      </span>
-      <h1 class="fw-bold">Course List</h1>
+      <h1 class="fw-bold mb-0">Course List</h1>
       <p class="text-muted mb-0">This list displays all the courses, allowing you to manage and view them easily.</p>
     </div>
-    <button class="btn btn-primary" (click)="createNewCourse()" matTooltip="Create New Course">
-      <i class="fa-solid fa-plus me-2"></i>Course
-    </button>
+    <div class="d-flex align-items-center">
+      <button class="btn btn-primary me-3" (click)="createNewCourse()" matTooltip="Create New Course">
+        <i class="fa-solid fa-plus me-2"></i>Add Course
+      </button>
+      <button class="btn btn-secondary" (click)="viewInstances()" matTooltip="View Instances">
+        <i class="fa-solid fa-eye me-2"></i>View Instances
+      </button>
+    </div>
   </div>
+  
 
   <!-- Loader Spinner -->
   <div *ngIf="loader" class="spinner-wrapper">
